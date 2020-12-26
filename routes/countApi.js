@@ -1,3 +1,5 @@
+// api to return the count of battles
+
 var express=require('express')
 var router=express.Router()
 const mongodb = require("mongodb");

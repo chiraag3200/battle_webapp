@@ -5,47 +5,47 @@ class AutoComplete extends Component {
     constructor(props){
         super(props);
         this.state = {
-            list:[],
-            suggestions:[],
-            text:'',
-            data:[],
-            final_data:[]
+            list:[],                   // to store the list of locations
+            suggestions:[],            // to store suggestions of locations
+            text:'',                   // to store the text typed
+            data:[],                   // to store the details of the battles
+            final_data:[]              // to store the details of the battle having typed location 
         }
     }
 
     componentDidMount() {
-        fetch('/list')
+        fetch('/list')                                       // fetch the list of all the locations to show suggestions
         .then((response) => response.json())
         .then(locations => {
             this.setState({ list: locations });
         });
     }
-
-    onTextChanged = (e) => {
+   
+    onTextChanged = (e) => {                                   // to handle text change
         const value=e.target.value;
         let suggestions=[],final_data=[]
         if(value.length === 0){
-            this.setState(() => ({suggestions,text:value,final_data}))
+            this.setState(() => ({suggestions,text:value,final_data}))                       // if  nothing is typed
         } else {
             const regex=new RegExp(`${value}`,'i')
-            const suggestions = this.state.list.sort().filter(v => regex.test(v))
+            const suggestions = this.state.list.sort().filter(v => regex.test(v))           // match the typed text with the list of locations
             this.setState(() => ({suggestions,text:value,final_data}))
         }
     }
 
-   renderSuggestions() {
+   renderSuggestions() {                                                                    // to render the suggestions on text change
        const {suggestions} = this.state
-       if(suggestions.length===0){
+       if(suggestions.length===0){                                                          // return null if there is no suggestion
            return null
        }
-       return (
+       return (                                                                            // return list of suggestions
           <ul>
-          {suggestions.map((location) => <li onClick={() => this.suggestionSelected(location)}>{location}</li>)}
+          {suggestions.map((location) => <li onClick={() => this.suggestionSelected(location)}>{location}</li>)}  
          </ul>
        )
    }
 
-   callAPI(){
+   callAPI(){                                                            // fetch details of all the battles 
     fetch('/data')
         .then((response) => response.json())
         .then(details => {
@@ -53,13 +53,13 @@ class AutoComplete extends Component {
         });
   }
 
-  componentDidUpdate(){
+  componentDidUpdate(){                                                  // call api to fetch the data
     this.callAPI()
   }
 
 suggestionSelected(value) {
-    var temp=[]
-    for (const item of this.state.data) {
+    var temp=[]          
+    for (const item of this.state.data) {                               // store the details of the selected location
         if (item.location === value) {
           temp.push(item)
         }
@@ -70,8 +70,8 @@ suggestionSelected(value) {
         final_data:temp
     }))
 }
-
-_renderObject(){
+   
+_renderObject(){                                                                  // render details of the selected location
     return Object.entries(this.state.final_data).map(([key, value], i) => {
         return (
             <div key={value.id}>

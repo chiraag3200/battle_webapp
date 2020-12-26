@@ -1,3 +1,5 @@
+// api to return the details of a specific battle
+
 var express=require('express')
 var router=new express.Router()
 const mongodb = require("mongodb");
