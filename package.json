@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "client": "cd client && cd battle_webapp && npm start",
-    "start": "concurrently \"npm dev\" \"npm client\""
+    "start": "concurrently \"npm run dev\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
