@@ -14,7 +14,7 @@ class AutoComplete extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:${process.env.PORT}/list')                                       // fetch the list of all the locations to show suggestions
+        fetch(`http://localhost${process.env.PORT}/list`)                                       // fetch the list of all the locations to show suggestions
         .then((response) => response.json())
         .then(locations => {
             this.setState({ list: locations });
@@ -46,7 +46,7 @@ class AutoComplete extends Component {
    }
 
    callAPI(){                                                            // fetch details of all the battles 
-    fetch('http://localhost:${process.env.PORT}/data')
+    fetch(`http://localhost${process.env.PORT}/data`)
         .then((response) => response.json())
         .then(details => {
             this.setState({ data: details });
