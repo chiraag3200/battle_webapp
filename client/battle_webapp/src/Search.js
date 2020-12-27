@@ -37,7 +37,7 @@ class Search extends Component {
 searchAPI(details,cb){
 
   axios
-      .post(`http://localhost${process.env.PORT}/search`, details)
+      .post(`http://localhost:${process.env.PORT}/search`, details)
       .then((response) => {
         console.log('Searching')
       }).catch(err => {
